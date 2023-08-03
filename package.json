@@ -1,7 +1,7 @@
 {
   "name": "vul-vulnerability-scanner",
   "displayName": "Vul Vulnerability Scanner",
-  "publisher": "KhulnaSoft Ltd.",
+  "publisher": "KhulnaSoft",
   "description": "A VS Code extension for Vul.",
   "version": "0.7.0",
   "engines": {
