@@ -1,0 +1,174 @@
+{
+  "name": "vul-vulnerability-scanner",
+  "displayName": "Vul Vulnerability Scanner",
+  "publisher": "KhulnaSoft Ltd.",
+  "description": "A VS Code extension for Vul.",
+  "version": "0.7.0",
+  "engines": {
+    "vscode": "^1.54.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onView:vul.issueview",
+    "onCommand:vul-vulnerability-scanner.scan",
+    "onCommand:vul-vulnerability-scanner.explorer-run",
+    "onCommand:vul-vulnerability-scanner.version"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "configuration": {
+      "title": "Vul",
+      "properties": {
+        "vul.binaryPath": {
+          "type": "string",
+          "default": "vul",
+          "description": "Path to Vul if not already on the PATH"
+        },
+        "vul.debug": {
+          "type": "boolean",
+          "default": false,
+          "description": "Run Vul with vebose flag to get more information"
+        },
+        "vul.secretScanning": {
+          "type": "boolean",
+          "default": false,
+          "description": "Vul should also scan for secrets, requires Vul >=v0.27.0"
+        },
+        "vul.offlineScan": {
+          "type": "boolean",
+          "default": false,
+          "description": "Run Vul as an offline scan"
+        },
+        "vul.fixedOnly": {
+          "type": "boolean",
+          "default": false,
+          "description": "Only return Vul results for vulnerabilities with fixes"
+        },
+        "vul.server.enable": {
+          "type": "boolean",
+          "default": false,
+          "description": "Connect to a vul server, on a remote machine"
+        },
+        "vul.server.url": {
+          "type": "string",
+          "default": "",
+          "description": "The remote vul URL to connect to"
+        },
+        "vul.minimumReportedSeverity": {
+          "type": "string",
+          "default": "UNKNOWN",
+          "enum": [
+            "CRITICAL",
+            "HIGH",
+            "MEDIUM",
+            "LOW",
+            "UNKNOWN"
+          ],
+          "description": "Return Vul results with severity greater than or equal to this setting."
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "vul-vulnerability-scanner.scan",
+        "title": "Vul Scan"
+      },
+      {
+        "command": "vul-vulnerability-scanner.explorer-run",
+        "title": "Vul: Run vul against workspace",
+        "icon": {
+          "light": "resources/light/refresh.svg",
+          "dark": "resources/dark/refresh.svg"
+        }
+      },
+      {
+        "command": "vul-vulnerability-scanner.refresh",
+        "title": "Vul: Refresh the issue list"
+      },
+      {
+        "command": "vul-vulnerability-scanner.version",
+        "title": "Vul: Get the current version of Vul"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "vul",
+          "title": "vul",
+          "icon": "media/vul.svg"
+        }
+      ]
+    },
+    "views": {
+      "vul": [
+        {
+          "id": "vul.issueview",
+          "name": "Findings Explorer",
+          "icon": "media/vul.svg",
+          "contextualTitle": "Findings Explorer"
+        },
+        {
+          "id": "vul.helpview",
+          "name": "Findings Help",
+          "type": "webview",
+          "contextualTitle": "Findings Help"
+        }
+      ]
+    },
+    "viewsWelcome": [
+      {
+        "view": "vul.issueview",
+        "contents": "Click the button below to run Vul against the current workspace.\n[Run Vul now](command:vul-vulnerability-scanner.explorer-run)\nVul configuration settings can be configured in the extension settings."
+      },
+      {
+        "view": "vul.helpview",
+        "contents": "No check selected. Run Vul and choose a failed check from the explorer"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "vul-vulnerability-scanner.explorer-run",
+          "when": "view == vul.issueview",
+          "group": "navigation@1"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run esbuild-base -- --minify",
+    "esbuild-base": "esbuild ./src/extension.ts --bundle --outfile=out/extension.js --external:vscode --format=cjs --platform=node",
+    "esbuild": "npm run esbuild-base -- --sourcemap",
+    "esbuild-watch": "npm run esbuild-base -- --sourcemap --watch",
+    "test-compile": "tsc -p ./",
+    "compile": "tsc -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.54.0",
+    "@types/glob": "^7.1.1",
+    "@types/mocha": "^7.0.2",
+    "@types/semver": "^7.3.6",
+    "@types/node": "^13.11.0",
+    "eslint": "^6.8.0",
+    "@typescript-eslint/parser": "^2.30.0",
+    "@typescript-eslint/eslint-plugin": "^2.30.0",
+    "esbuild": "^0.14.11",
+    "glob": "^7.1.6",
+    "mocha": "^8.4.0",
+    "typescript": "^4.5.4",
+    "vscode-test": "^1.5.0"
+  },
+  "repository": {
+    "url": "https://github.com/khulnasoft-labs/vul-vscode-extension"
+  },
+  "dependencies": {
+    "@types/uuid": "^8.3.4",
+    "semver": "^7.3.5",
+    "typescipt": "^1.0.0",
+    "uuid": "^8.3.2"
+  }
+}
