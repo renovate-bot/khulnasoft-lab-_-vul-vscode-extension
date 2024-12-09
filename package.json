@@ -166,7 +166,7 @@
     "url": "https://github.com/khulnasoft-labs/vul-vscode-extension"
   },
   "dependencies": {
-    "@types/uuid": "^8.3.4",
+    "@types/uuid": "^10.0.0",
     "semver": "^7.3.5",
     "typescipt": "^1.0.0",
     "uuid": "^8.3.2"
