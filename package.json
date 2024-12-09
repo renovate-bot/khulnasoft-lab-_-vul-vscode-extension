@@ -154,7 +154,7 @@
     "@types/semver": "^7.3.6",
     "@types/node": "^13.11.0",
     "eslint": "^6.8.0",
-    "@typescript-eslint/parser": "^2.30.0",
+    "@typescript-eslint/parser": "^8.0.0",
     "@typescript-eslint/eslint-plugin": "^2.30.0",
     "esbuild": "^0.14.11",
     "glob": "^7.1.6",
